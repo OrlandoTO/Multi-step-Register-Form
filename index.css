@@ -24,7 +24,7 @@ main{
 }
 body>img:nth-child(1) {
     position: absolute;
-    transform: translate(-50%, -60%);
+    transform: translate(-40%, -60%);
     z-index: -1;
 
 }
@@ -32,7 +32,7 @@ body>img:nth-child(1) {
 body>img:nth-child(2) {
     position: absolute;
     right: 0;
-    transform: translate(50%, 15%);
+    transform: translate(40%, 15%);
     z-index: -1;
 }
 
@@ -41,9 +41,9 @@ body>img:nth-child(2) {
     background-color: #212936;
     border: 1px solid #4D5562;
     border-radius: 12px;
-    width: 32%;
+    width: 30%;
     min-width: 400px;
-    margin: 7% auto 0 auto;
+    margin: 10% auto 0 auto;
 }
 
 #card>div>h2{
