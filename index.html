@@ -21,11 +21,17 @@
                 <h2>Register</h2>
                 <div class="form-control">
                     <label for="">Name</label>
-                    <input type="text" name="" id="input-name" placeholder="enter your name">
+                    <input type="text" id="input-name" placeholder="enter your name">
+                    <div id="error-name" class="error">
+
+                    </div>
                 </div>
                 <div class="form-control">
                     <label for="">Email</label>
-                    <input type="text" name="" id="input-email" placeholder="example@gmail.com">
+                    <input type="text" id="input-email" placeholder="example@gmail.com">
+                    <div id="error-email" class="error">
+
+                    </div>
                 </div>
             </div>
 
@@ -35,6 +41,9 @@
                     <div class="item-topic">Software Development</div>
                     <div class="item-topic ">User Experience</div>
                     <div class="item-topic">Graphic Design</div>
+                </div>
+                <div class="error mt-20" id="error-topics">
+
                 </div>
             </div>
 
@@ -83,6 +92,7 @@
     </main>
 </body>
 <script>
+    //Variables
     let btnStep = document.getElementById("btn-step");
     let topics = document.getElementById("topics");
     let showSelectedTopics = document.getElementById("show-selected-topics")
@@ -91,42 +101,81 @@
     let emailUser = document.getElementById("email-user");
     let inputName = document.getElementById("input-name");
     let inputEmail = document.getElementById("input-email");
+    let errorTopics = document.getElementById("error-topics")
+    let errorName = document.getElementById("error-name");
+    let errorEmail = document.getElementById("error-email");
+    
+    //Events
     btnStep.addEventListener("click", function () {
         let btnStepValue = parseInt(btnStep.value)
         console.log(btnStepValue)
         if (btnStepValue == 1) {
+
+            if (isEmpty(inputName.value)) {
+                errorName.innerHTML = 'The field name is required'
+                return
+            }
+
+            if (isEmpty(inputEmail.value)) {
+                errorEmail.innerHTML = 'The field email is required'
+                return
+            } else {
+                if(!isEmail(inputEmail.value)){
+                    errorEmail.innerHTML = `The email format is incorrect.`
+                    return
+                }
+            }
+
             document.getElementById("step-1").classList.add("hide");
             document.getElementById("step-2").classList.add("show");
             document.getElementById("footer-step-1").classList.add("hide");
             document.getElementById("footer-step-2").classList.add("show-flex");
         }
         if (btnStepValue == 2) {
+            if(topicsSelected.length==0){
+                errorTopics.innerHTML='Please select a topic'
+                return
+            }
             document.getElementById("step-2").classList.add("hide");
             document.getElementById("step-3").classList.add("show");
             document.getElementById("footer-step-2").classList.add("hide");
             document.getElementById("footer-step-3").classList.add("show-flex");
-            showSelectedTopics.innerHTML=topicsSelected.reduce((prev,current)=> prev + `<li>${current}</li>`,"")
-            nameUser.innerHTML=inputName.value
-            emailUser.innerHTML=inputEmail.value
-        }   
+            btnStep.innerHTML="Confirm"
+            showSelectedTopics.innerHTML = topicsSelected.reduce((prev, current) => prev + `<li>${current}</li>`, "")
+            nameUser.innerHTML = inputName.value
+            emailUser.innerHTML = inputEmail.value
+        }
 
         btnStep.value = btnStepValue + 1
     })
+    inputEmail.addEventListener('keypress',function(){
+        errorEmail.innerHTML=""
+    })
+    inputName.addEventListener('keypress',function(){
+        errorName.innerHTML=""
+    })
     topics.addEventListener("click", function (event) {
+        errorTopics.innerHTML=""
         let topicSelected = event.target
         if (topicSelected.classList.contains('item-topic')) {
-            if(topicSelected.classList.contains('select')){
+            if (topicSelected.classList.contains('select')) {
                 topicSelected.classList.remove("select")
-                topicsSelected = topicsSelected.filter(e=>e!=topicSelected.textContent)
-            }else{
+                topicsSelected = topicsSelected.filter(e => e != topicSelected.textContent)
+            } else {
                 topicsSelected.push(topicSelected.textContent)
                 topicSelected.classList.add("select")
             }
             console.log(topicsSelected)
-            
-           
         }
     })
+    
+    //Functions
+    const isEmpty = (value) => {
+        return value === ''
+    }
+    const isEmail = (value) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
+    }
 </script>
 
 </html>

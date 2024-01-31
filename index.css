@@ -195,6 +195,13 @@ input[type="text"]:focus-visible{
 .topics>ul{
     margin-left: 25px;
 }
+.error{
+    color: rgb(209, 50, 50);
+}
+
+.mt-20{
+    margin-top: 20px;
+}
 @media screen and (max-width:640px){
      #card{
         margin-top: 12%;
