@@ -146,6 +146,11 @@
             emailUser.innerHTML = inputEmail.value
         }
 
+        if(btnStepValue==3){
+            
+            alert("✅ Success")
+        }
+
         btnStep.value = btnStepValue + 1
     })
     inputEmail.addEventListener('keypress',function(){
@@ -168,7 +173,7 @@
             console.log(topicsSelected)
         }
     })
-    
+
     //Functions
     const isEmpty = (value) => {
         return value === ''
