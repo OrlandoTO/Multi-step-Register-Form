@@ -197,6 +197,6 @@ input[type="text"]:focus-visible{
 }
 @media screen and (max-width:640px){
      #card{
-        margin-top: 18%;
+        margin-top: 12%;
      }   
 }
