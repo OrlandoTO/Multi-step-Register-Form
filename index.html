@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multi-step Register Form</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="index.css">
+
+</head>
+
+<body>
+    <img src="./img/blur-radial.svg" alt="">
+    <img src="./img/blur-radial.svg" alt="">
+    <main>
+        <div id="card">
+            <div class="mb-30" id="step-1">
+                <h2>Register</h2>
+                <div class="form-control">
+                    <label for="">Name</label>
+                    <input type="text" name="" id="input-name" placeholder="enter your name">
+                </div>
+                <div class="form-control">
+                    <label for="">Email</label>
+                    <input type="text" name="" id="input-email" placeholder="example@gmail.com">
+                </div>
+            </div>
+
+            <div class="mb-30" id="step-2">
+                <h2>Which topics you are interested in?</h2>
+                <div class="topics" id="topics">
+                    <div class="item-topic">Software Development</div>
+                    <div class="item-topic ">User Experience</div>
+                    <div class="item-topic">Graphic Design</div>
+                </div>
+            </div>
+
+            <div class="mb-30" id="step-3">
+                <h2>Summary</h2>
+                <div class="data">
+                    <div class="data-name"><span class="color-label">Name:</span><span class="color-text"
+                            id="name-user"></span></span></div>
+                    <div class="data-email "><span class="color-label">Email:</span><span class="color-text"
+                            id="email-user"></span></div>
+                </div>
+                <div class="topics color-label">
+                    Topics
+                    <ul class="color-text" id="show-selected-topics">
+                        <li>User Experience</li>
+                        <li>Graphic Design</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="form-btn">
+                <button type="button" class="btn" id="btn-step" value="1">Continue</button>
+            </div>
+
+
+
+
+
+        </div>
+        <div class="steps" id="footer-step-1">
+            <div>Step <span>1</span> of <span>3</span> </div>
+            <div class="items-step "><span class="item-step blur"></span><span
+                    class="item-step reduce-width"></span><span class="item-step reduce-width"></span></div>
+        </div>
+
+        <div class="steps" id="footer-step-2">
+            <div>Step <span>2</span> of <span>3</span> </div>
+            <div class="items-step "><span class="item-step reduce-width"></span><span
+                    class="item-step blur"></span><span class="item-step reduce-width"></span></div>
+        </div>
+
+        <div class="steps" id="footer-step-3">
+            <div>Step <span>3</span> of <span>3</span> </div>
+            <div class="items-step "><span class="item-step reduce-width"></span><span
+                    class="item-step  reduce-width"></span><span class="item-step blur"></span></div>
+        </div>
+    </main>
+</body>
+<script>
+    let btnStep = document.getElementById("btn-step");
+    let topics = document.getElementById("topics");
+    let showSelectedTopics = document.getElementById("show-selected-topics")
+    let topicsSelected = []
+    let nameUser = document.getElementById("name-user");
+    let emailUser = document.getElementById("email-user");
+    let inputName = document.getElementById("input-name");
+    let inputEmail = document.getElementById("input-email");
+    btnStep.addEventListener("click", function () {
+        let btnStepValue = parseInt(btnStep.value)
+        console.log(btnStepValue)
+        if (btnStepValue == 1) {
+            document.getElementById("step-1").classList.add("hide");
+            document.getElementById("step-2").classList.add("show");
+            document.getElementById("footer-step-1").classList.add("hide");
+            document.getElementById("footer-step-2").classList.add("show-flex");
+        }
+        if (btnStepValue == 2) {
+            document.getElementById("step-2").classList.add("hide");
+            document.getElementById("step-3").classList.add("show");
+            document.getElementById("footer-step-2").classList.add("hide");
+            document.getElementById("footer-step-3").classList.add("show-flex");
+            showSelectedTopics.innerHTML=topicsSelected.reduce((prev,current)=> prev + `<li>${current}</li>`,"")
+            nameUser.innerHTML=inputName.value
+            emailUser.innerHTML=inputEmail.value
+        }   
+
+        btnStep.value = btnStepValue + 1
+    })
+    topics.addEventListener("click", function (event) {
+        let topicSelected = event.target
+        if (topicSelected.classList.contains('item-topic')) {
+            if(topicSelected.classList.contains('select')){
+                topicSelected.classList.remove("select")
+                topicsSelected = topicsSelected.filter(e=>e!=topicSelected.textContent)
+            }else{
+                topicsSelected.push(topicSelected.textContent)
+                topicSelected.classList.add("select")
+            }
+            console.log(topicsSelected)
+            
+           
+        }
+    })
+</script>
+
+</html>
